@@ -386,7 +386,15 @@ nav {
 }
 
 .badge-icon {
-  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 6px;
+  background: var(--mint-bg);
+  color: var(--teal);
+  flex-shrink: 0;
 }
 
 .badge-text {
@@ -586,7 +594,9 @@ main {
 }
 
 .sidebar-tag {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   font-family: 'Inconsolata', monospace;
   font-size: 0.7rem;
   padding: 0.22rem 0.6rem;
@@ -595,6 +605,9 @@ main {
   color: var(--muted);
   background: #fff;
   margin: 0.2rem;
+}
+.sidebar-tag svg {
+  flex-shrink: 0;
 }
 
 .avail-badge {
@@ -842,6 +855,9 @@ main {
 }
 
 .sg-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
   font-family: 'Inconsolata', monospace;
   font-size: 0.73rem;
   padding: 0.25rem 0.65rem;
@@ -851,6 +867,7 @@ main {
   background: var(--white);
   transition: border-color 0.2s, color 0.2s;
 }
+.sg-tag svg { flex-shrink: 0; }
 
 .sg-tag:hover {
   border-color: var(--teal);
