@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Work & Writing — Your Name</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600&family=Inconsolata:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink:     #0D1B2A;
+    --teal:    #0C7A72;
+    --teal-lt: #14A89D;
+    --mint-bg: #E8F5F3;
+    --sky-bg:  #EAF2FF;
+    --sand-bg: #FBF7F0;
+    --white:   #FAFBFC;
+    --muted:   #6B7A90;
+    --border:  #DDE4ED;
+    --nav-h:   68px;
+  }
+  *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+  html { scroll-behavior:smooth; }
+  body { font-family:'Outfit',sans-serif; background:var(--white); color:var(--ink); overflow-x:hidden; }
+
+  /* ── NAV ── */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:200;
+    height:var(--nav-h);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 4rem;
+    background:rgba(250,251,252,.92);
+    backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-name { font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-weight:600; color:var(--ink); text-decoration:none; }
+  .nav-links { display:flex; align-items:center; gap:2.5rem; list-style:none; }
+  .nav-links a { text-decoration:none; color:var(--muted); font-size:.82rem; font-weight:500; letter-spacing:.07em; text-transform:uppercase; transition:color .2s; }
+  .nav-links a:hover, .nav-links a.active { color:var(--teal); }
+  .nav-cta { padding:.5rem 1.3rem; border:1.5px solid var(--teal); border-radius:4px; color:var(--teal) !important; font-weight:600 !important; transition:background .2s,color .2s !important; }
+  .nav-cta:hover { background:var(--teal); color:#fff !important; }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    padding: calc(var(--nav-h) + 3rem) 4rem 3rem;
+    border-bottom:1px solid var(--border);
+    background:var(--sky-bg);
+  }
+  .page-eyebrow { font-family:'Inconsolata',monospace; font-size:.75rem; letter-spacing:.14em; color:var(--teal); text-transform:uppercase; margin-bottom:.8rem; }
+  .page-title { font-family:'Cormorant Garamond',serif; font-size:clamp(3rem,6vw,5.5rem); font-weight:700; line-height:1.0; letter-spacing:-.02em; }
+  .page-title em { font-style:italic; font-weight:300; color:var(--teal); }
+
+  /* ── TAB NAV ── */
+  .tab-bar {
+    display:flex; border-bottom:1px solid var(--border);
+    background:#fff; padding:0 4rem;
+    position:sticky; top:var(--nav-h); z-index:100;
+  }
+  .tab-btn {
+    padding:1.1rem 0; margin-right:2.5rem;
+    border:none; background:none; cursor:pointer;
+    font-family:'Outfit',sans-serif; font-size:.84rem; font-weight:500;
+    color:var(--muted); letter-spacing:.04em;
+    border-bottom:2px solid transparent;
+    transition:color .2s, border-color .2s;
+  }
+  .tab-btn.active { color:var(--teal); border-bottom-color:var(--teal); }
+  .tab-btn:hover { color:var(--teal); }
+
+  /* ── MAIN CONTENT ── */
+  main { padding:3.5rem 4rem; max-width:1200px; margin:0 auto; }
+
+  /* Filter chips */
+  .filter-row { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:2.5rem; align-items:center; }
+  .filter-label { font-size:.76rem; color:var(--muted); font-family:'Inconsolata',monospace; letter-spacing:.06em; margin-right:.5rem; }
+  .filter-chip {
+    padding:.28rem .8rem; border:1px solid var(--border); border-radius:3px;
+    font-family:'Inconsolata',monospace; font-size:.72rem; color:var(--muted);
+    background:#fff; cursor:pointer; transition:all .2s;
+  }
+  .filter-chip:hover, .filter-chip.active { background:var(--teal); color:#fff; border-color:var(--teal); }
+
+  /* ── PROJECTS ── */
+  #projects-panel { display:block; }
+  #blog-panel { display:none; }
+
+  .projects-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1.3rem; }
+  .proj-card {
+    border:1px solid var(--border); border-radius:10px;
+    padding:2rem; background:#fff; overflow:hidden; position:relative;
+    transition:border-color .25s, transform .25s, box-shadow .25s;
+    cursor:default;
+  }
+  .proj-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background:linear-gradient(90deg, var(--teal), var(--teal-lt));
+    transform:scaleX(0); transform-origin:left; transition:transform .3s;
+  }
+  .proj-card:hover { border-color:var(--teal); transform:translateY(-3px); box-shadow:0 16px 40px rgba(12,122,114,.1); }
+  .proj-card:hover::before { transform:scaleX(1); }
+  .proj-num { font-family:'Inconsolata',monospace; font-size:.7rem; color:var(--teal); letter-spacing:.1em; margin-bottom:.7rem; }
+  .proj-title { font-family:'Cormorant Garamond',serif; font-size:1.4rem; font-weight:700; line-height:1.2; margin-bottom:.7rem; }
+  .proj-desc { color:var(--muted); font-size:.88rem; line-height:1.7; margin-bottom:1.2rem; }
+  .proj-outcome {
+    display:inline-flex; align-items:center; gap:.4rem;
+    font-size:.78rem; color:var(--teal); background:var(--mint-bg);
+    padding:.3rem .7rem; border-radius:3px;
+    font-family:'Inconsolata',monospace; margin-bottom:1.1rem;
+  }
+  .proj-tags { display:flex; flex-wrap:wrap; gap:.35rem; }
+  .proj-tag {
+    font-family:'Inconsolata',monospace; font-size:.7rem; color:var(--muted);
+    padding:.2rem .55rem; border:1px solid var(--border); border-radius:3px; background:var(--white);
+  }
+
+  /* ── BLOG ── */
+  .blog-list { display:flex; flex-direction:column; gap:0; }
+  .blog-row {
+    display:grid; grid-template-columns:160px 1fr auto;
+    align-items:center; gap:2rem;
+    padding:2rem 0; border-bottom:1px solid var(--border);
+    text-decoration:none; color:inherit;
+    transition:background .2s;
+    border-radius:4px;
+  }
+  .blog-row:first-child { border-top:1px solid var(--border); }
+  .blog-row:hover .br-title { color:var(--teal); }
+  .br-meta { font-family:'Inconsolata',monospace; font-size:.72rem; color:var(--teal); letter-spacing:.06em; }
+  .br-date { font-size:.72rem; color:var(--muted); font-family:'Inconsolata',monospace; margin-top:.3rem; }
+  .br-title { font-family:'Cormorant Garamond',serif; font-size:1.35rem; font-weight:700; margin-bottom:.4rem; transition:color .2s; }
+  .br-excerpt { font-size:.86rem; color:var(--muted); line-height:1.65; }
+  .br-arrow { font-size:1.2rem; color:var(--border); transition:color .3s, transform .3s; }
+  .blog-row:hover .br-arrow { color:var(--teal); transform:translateX(4px); }
+
+  /* ── SECTION TITLES ── */
+  .panel-header { margin-bottom:2.5rem; }
+  .panel-eyebrow { font-family:'Inconsolata',monospace; font-size:.72rem; letter-spacing:.14em; color:var(--teal); text-transform:uppercase; margin-bottom:.5rem; }
+  .panel-title { font-family:'Cormorant Garamond',serif; font-size:2.2rem; font-weight:700; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding:1.8rem 4rem; border-top:1px solid var(--border);
+    display:flex; justify-content:space-between; align-items:center;
+    font-size:.78rem; color:var(--muted); font-family:'Inconsolata',monospace;
+  }
+  footer a { color:var(--teal); text-decoration:none; }
+
+  /* reveal */
+  .reveal { opacity:0; transform:translateY(18px); transition:opacity .6s ease,transform .6s ease; }
+  .reveal.on { opacity:1; transform:none; }
+
+  @media (max-width:900px) {
+    nav { padding:0 1.5rem; }
+    .page-header { padding:calc(var(--nav-h)+2rem) 1.5rem 2rem; }
+    .tab-bar { padding:0 1.5rem; }
+    main { padding:2.5rem 1.5rem; }
+    .projects-grid { grid-template-columns:1fr; }
+    .blog-row { grid-template-columns:1fr; gap:.5rem; }
+    .br-arrow { display:none; }
+    footer { flex-direction:column; gap:.4rem; text-align:center; padding:1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-name">Your Name</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About & Resume</a></li>
+    <li><a href="work.html" class="active">Work & Writing</a></li>
+    <li><a href="about.html#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header">
+  <div class="page-eyebrow">03 · Work & Writing</div>
+  <h1 class="page-title">Projects<br/><em>& Writing</em></h1>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showPanel('projects',this)">Projects</button>
+  <button class="tab-btn" onclick="showPanel('blog',this)" id="blog-tab">Writing</button>
+</div>
+
+<!-- MAIN -->
+<main>
+
+  <!-- PROJECTS PANEL -->
+  <div id="projects-panel">
+    <div class="panel-header reveal">
+      <div class="panel-eyebrow">Selected Work</div>
+      <div class="panel-title">Featured Projects</div>
+    </div>
+    <div class="filter-row reveal">
+      <span class="filter-label">Filter:</span>
+      <span class="filter-chip active" onclick="filterProjects('all',this)">All</span>
+      <span class="filter-chip" onclick="filterProjects('data',this)">Data & Analytics</span>
+      <span class="filter-chip" onclick="filterProjects('ml',this)">Machine Learning</span>
+      <span class="filter-chip" onclick="filterProjects('systems',this)">Systems</span>
+      <span class="filter-chip" onclick="filterProjects('business',this)">Business</span>
+    </div>
+    <div class="projects-grid" id="proj-grid">
+
+      <div class="proj-card reveal" data-cat="ml data">
+        <div class="proj-num">01 · Machine Learning</div>
+        <div class="proj-title">Customer Churn Prediction Model</div>
+        <div class="proj-desc">End-to-end ML pipeline predicting subscriber churn with 91% accuracy, enabling proactive retention interventions across the customer base.</div>
+        <div class="proj-outcome">📈 ~18% estimated churn reduction</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span><span class="proj-tag">Scikit-learn</span><span class="proj-tag">XGBoost</span><span class="proj-tag">Tableau</span><span class="proj-tag">AWS S3</span>
+        </div>
+      </div>
+
+      <div class="proj-card reveal" data-cat="data business" style="transition-delay:.08s">
+        <div class="proj-num">02 · Business Intelligence</div>
+        <div class="proj-title">Supply Chain Analytics Dashboard</div>
+        <div class="proj-desc">Real-time Power BI dashboard tracking inventory, supplier performance, and logistics KPIs across 6 regions — cutting reporting time from 3 days to 2 hours.</div>
+        <div class="proj-outcome">⏱ 93% reduction in reporting time</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Power BI</span><span class="proj-tag">SQL</span><span class="proj-tag">Azure</span><span class="proj-tag">DAX</span>
+        </div>
+      </div>
+
+      <div class="proj-card reveal" data-cat="ml data" style="transition-delay:.16s">
+        <div class="proj-num">03 · NLP Research</div>
+        <div class="proj-title">Earnings Call Sentiment Analysis</div>
+        <div class="proj-desc">Applied NLP to 5 years of public earnings transcripts to extract sentiment signals correlated with 30-day stock performance.</div>
+        <div class="proj-outcome">📊 0.68 Spearman correlation</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span><span class="proj-tag">BERT</span><span class="proj-tag">NLTK</span><span class="proj-tag">Pandas</span><span class="proj-tag">Plotly</span>
+        </div>
+      </div>
+
+      <div class="proj-card reveal" data-cat="systems business" style="transition-delay:.24s">
+        <div class="proj-num">04 · Systems Analysis</div>
+        <div class="proj-title">Healthcare EHR Optimization Study</div>
+        <div class="proj-desc">Analyzed EHR system inefficiencies at a regional hospital, proposing workflow redesigns that modeled a 22% reduction in administrative overhead.</div>
+        <div class="proj-outcome">🏥 22% overhead reduction modeled</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Process Mining</span><span class="proj-tag">SQL</span><span class="proj-tag">R</span><span class="proj-tag">Systems Design</span>
+        </div>
+      </div>
+
+      <div class="proj-card reveal" data-cat="data systems" style="transition-delay:.32s">
+        <div class="proj-num">05 · Data Engineering</div>
+        <div class="proj-title">Automated ETL Pipeline & Data Warehouse</div>
+        <div class="proj-desc">Designed and implemented an end-to-end ETL pipeline consolidating data from 5 sources into a centralized warehouse, enabling self-serve analytics for 50+ users.</div>
+        <div class="proj-outcome">⚡ 40% processing time reduction</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Python</span><span class="proj-tag">Apache Airflow</span><span class="proj-tag">PostgreSQL</span><span class="proj-tag">AWS</span>
+        </div>
+      </div>
+
+      <div class="proj-card reveal" data-cat="business data" style="transition-delay:.4s">
+        <div class="proj-num">06 · Strategy</div>
+        <div class="proj-title">Market Entry Analysis — SaaS Vertical</div>
+        <div class="proj-desc">Comprehensive market entry analysis for a B2B SaaS product, combining competitive landscape mapping, TAM/SAM/SOM sizing, and go-to-market channel modeling.</div>
+        <div class="proj-outcome">📋 Recommended strategy adopted</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Excel</span><span class="proj-tag">Python</span><span class="proj-tag">Market Research</span><span class="proj-tag">Financial Modeling</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BLOG PANEL -->
+  <div id="blog-panel" style="display:none" id="blog">
+    <div class="panel-header reveal">
+      <div class="panel-eyebrow">Ideas & Perspectives</div>
+      <div class="panel-title">Writing</div>
+    </div>
+    <div class="blog-list">
+
+      <a href="#" class="blog-row reveal">
+        <div>
+          <div class="br-meta">Data Strategy</div>
+          <div class="br-date">Feb 2025</div>
+        </div>
+        <div>
+          <div class="br-title">Why Most Data Dashboards Fail to Drive Action</div>
+          <div class="br-excerpt">Beautiful visualizations mean nothing if they don't connect to decisions. What separates dashboards that get used from ones that get ignored.</div>
+        </div>
+        <div class="br-arrow">→</div>
+      </a>
+
+      <a href="#" class="blog-row reveal">
+        <div>
+          <div class="br-meta">AI & Business</div>
+          <div class="br-date">Jan 2025</div>
+        </div>
+        <div>
+          <div class="br-title">The Real Barrier to Enterprise AI Adoption Isn't Technology</div>
+          <div class="br-excerpt">After studying adoption patterns across 200 organizations, the pattern is clear: culture — not capability — determines AI success.</div>
+        </div>
+        <div class="br-arrow">→</div>
+      </a>
+
+      <a href="#" class="blog-row reveal">
+        <div>
+          <div class="br-meta">Career</div>
+          <div class="br-date">Dec 2024</div>
+        </div>
+        <div>
+          <div class="br-title">Dual Degree, Dual Perspective: What an MS + MBA Taught Me</div>
+          <div class="br-excerpt">Why combining technical depth with business strategy made me a fundamentally different thinker — and how it shapes every problem I approach.</div>
+        </div>
+        <div class="br-arrow">→</div>
+      </a>
+
+      <a href="#" class="blog-row reveal">
+        <div>
+          <div class="br-meta">Data Engineering</div>
+          <div class="br-date">Nov 2024</div>
+        </div>
+        <div>
+          <div class="br-title">Building ETL Pipelines That Actually Get Used</div>
+          <div class="br-excerpt">Technical excellence in a pipeline means nothing if the data never makes it into decisions. Here's what I learned building pipelines for non-technical stakeholders.</div>
+        </div>
+        <div class="br-arrow">→</div>
+      </a>
+
+      <a href="#" class="blog-row reveal">
+        <div>
+          <div class="br-meta">Product</div>
+          <div class="br-date">Oct 2024</div>
+        </div>
+        <div>
+          <div class="br-title">What Product Managers Get Wrong About Data</div>
+          <div class="br-excerpt">More data doesn't mean better decisions. The most effective PMs I've worked with ask fewer, sharper questions — and act on the answers faster.</div>
+        </div>
+        <div class="br-arrow">→</div>
+      </a>
+
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div>© 2025 Your Name</div>
+  <div>MS Information Systems · MBA · <a href="mailto:your@email.com">your@email.com</a></div>
+</footer>
+
+<script>
+  function showPanel(name, btn) {
+    document.getElementById('projects-panel').style.display = name==='projects' ? 'block' : 'none';
+    document.getElementById('blog-panel').style.display = name==='blog' ? 'block' : 'none';
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    // re-trigger reveals
+    document.querySelectorAll('.reveal').forEach(el => {
+      if (!el.classList.contains('on')) obs.observe(el);
+    });
+  }
+
+  function filterProjects(cat, chip) {
+    document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    document.querySelectorAll('.proj-card').forEach(card => {
+      if (cat === 'all' || card.dataset.cat.includes(cat)) {
+        card.style.display = 'flex';
+        card.style.flexDirection = 'column';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Check if URL has #blog to auto-switch
+  if (window.location.hash === '#blog') {
+    showPanel('blog', document.getElementById('blog-tab'));
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Your Name — MS Information Systems & MBA</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Outfit:wght@300;400;500;600&family=Inconsolata:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --ink:        #0D1B2A;
+    --teal:       #0C7A72;
+    --teal-lt:    #14A89D;
+    --mint-bg:    #E8F5F3;
+    --sky-bg:     #EAF2FF;
+    --sand-bg:    #FBF7F0;
+    --white:      #FAFBFC;
+    --muted:      #6B7A90;
+    --border:     #DDE4ED;
+    --nav-h:      68px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Outfit', sans-serif; background: var(--white); color: var(--ink); overflow-x: hidden; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    height: var(--nav-h);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 4rem;
+    background: rgba(250,251,252,.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem; font-weight: 600; color: var(--ink);
+    text-decoration: none; letter-spacing: .01em;
+  }
+  .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--muted);
+    font-size: .82rem; font-weight: 500; letter-spacing: .07em; text-transform: uppercase;
+    transition: color .2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--teal); }
+  .nav-cta {
+    padding: .5rem 1.3rem;
+    border: 1.5px solid var(--teal); border-radius: 4px;
+    color: var(--teal) !important; font-weight: 600 !important;
+    transition: background .2s, color .2s !important;
+  }
+  .nav-cta:hover { background: var(--teal); color: #fff !important; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    padding-top: var(--nav-h);
+    display: grid; grid-template-columns: 1fr 420px;
+    align-items: center;
+    padding-left: 4rem; padding-right: 4rem;
+    gap: 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* Stacked typographic hero (vistales-style) */
+  .hero-type { animation: fadeUp .9s .1s ease both; }
+  .hero-line {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1.0;
+    letter-spacing: -.02em;
+  }
+  .hl-sm  { font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 300; color: var(--muted); letter-spacing: .12em; font-family: 'Inconsolata', monospace; margin-bottom: .6rem; }
+  .hl-xl  { font-size: clamp(4.5rem, 8vw, 7.5rem); font-weight: 700; color: var(--ink); }
+  .hl-xl-teal { font-size: clamp(4.5rem, 8vw, 7.5rem); font-weight: 300; color: var(--teal); font-style: italic; }
+  .hl-md  { font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 600; color: var(--ink); }
+  .hl-sub {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem; font-weight: 400; color: var(--muted);
+    line-height: 1.7; max-width: 42ch; letter-spacing: 0;
+    margin-top: 1.5rem; margin-bottom: 2rem;
+  }
+  .hero-chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 2.2rem; }
+  .chip {
+    font-family: 'Inconsolata', monospace;
+    font-size: .76rem; padding: .3rem .85rem;
+    border: 1px solid var(--border); border-radius: 3px;
+    color: var(--muted); background: #fff;
+    letter-spacing: .04em;
+  }
+  .hero-actions { display: flex; gap: 1rem; }
+  .btn-solid {
+    padding: .72rem 1.8rem; background: var(--teal); color: #fff;
+    border: none; border-radius: 4px;
+    font-family: 'Outfit', sans-serif; font-size: .9rem; font-weight: 600;
+    text-decoration: none; cursor: pointer;
+    transition: background .2s, transform .2s;
+  }
+  .btn-solid:hover { background: var(--teal-lt); transform: translateY(-2px); }
+  .btn-outline {
+    padding: .72rem 1.8rem; background: transparent; color: var(--ink);
+    border: 1.5px solid var(--border); border-radius: 4px;
+    font-family: 'Outfit', sans-serif; font-size: .9rem; font-weight: 500;
+    text-decoration: none; cursor: pointer;
+    transition: border-color .2s, color .2s;
+  }
+  .btn-outline:hover { border-color: var(--teal); color: var(--teal); }
+
+  /* Profile photo side */
+  .hero-photo-col { display: flex; flex-direction: column; align-items: center; gap: 2rem; animation: fadeUp .9s .3s ease both; }
+  .photo-frame {
+    width: 300px; height: 300px; border-radius: 50%;
+    border: 3px solid var(--border);
+    overflow: hidden;
+    position: relative;
+    background: var(--mint-bg);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 20px 60px rgba(12,122,114,.1);
+    transition: box-shadow .3s;
+  }
+  .photo-frame:hover { box-shadow: 0 28px 70px rgba(12,122,114,.18); }
+  .photo-placeholder {
+    display: flex; flex-direction: column; align-items: center; gap: .6rem;
+    color: var(--teal); opacity: .6;
+    font-size: .8rem; font-family: 'Inconsolata', monospace;
+    letter-spacing: .06em; text-align: center;
+    cursor: pointer;
+  }
+  .photo-placeholder svg { width: 48px; height: 48px; stroke: var(--teal); fill: none; stroke-width: 1.5; }
+  .photo-frame img { width: 100%; height: 100%; object-fit: cover; display: none; }
+  #photoInput { display: none; }
+
+  .degree-badges { display: flex; flex-direction: column; gap: .6rem; width: 100%; }
+  .badge {
+    display: flex; align-items: center; gap: .8rem;
+    padding: .75rem 1.1rem;
+    background: #fff; border: 1px solid var(--border); border-radius: 6px;
+    transition: border-color .2s;
+  }
+  .badge:hover { border-color: var(--teal); }
+  .badge-icon { font-size: 1.2rem; }
+  .badge-text { font-size: .82rem; }
+  .badge-text strong { display: block; color: var(--ink); font-weight: 600; }
+  .badge-text span { color: var(--muted); font-size: .76rem; }
+
+  /* ── COLOR SECTION PREVIEWS ── */
+  .section-previews { display: grid; grid-template-columns: repeat(3, 1fr); }
+
+  .preview-block {
+    padding: 4rem;
+    border-right: 1px solid var(--border);
+    border-top: 1px solid var(--border);
+    text-decoration: none; color: inherit;
+    display: flex; flex-direction: column; justify-content: space-between;
+    min-height: 340px;
+    transition: opacity .2s;
+    position: relative; overflow: hidden;
+  }
+  .preview-block:last-child { border-right: none; }
+  .preview-block.mint  { background: var(--mint-bg); }
+  .preview-block.sky   { background: var(--sky-bg); }
+  .preview-block.sand  { background: var(--sand-bg); }
+
+  .preview-block::after {
+    content: '→';
+    position: absolute; bottom: 3.5rem; right: 4rem;
+    font-size: 1.5rem; color: var(--teal);
+    transform: translateX(-6px);
+    transition: transform .3s;
+  }
+  .preview-block:hover::after { transform: translateX(0); }
+  .preview-block:hover { opacity: .92; }
+
+  .pb-num {
+    font-family: 'Inconsolata', monospace;
+    font-size: .72rem; letter-spacing: .14em;
+    color: var(--teal); text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+  .pb-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 700;
+    line-height: 1.1; margin-bottom: .8rem;
+    color: var(--ink);
+  }
+  .pb-desc { font-size: .88rem; color: var(--muted); line-height: 1.7; max-width: 28ch; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: .78rem; color: var(--muted);
+    font-family: 'Inconsolata', monospace;
+  }
+  footer a { color: var(--teal); text-decoration: none; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 960px) {
+    nav { padding: 0 1.5rem; }
+    #hero { grid-template-columns: 1fr; padding: calc(var(--nav-h) + 2rem) 1.5rem 3rem; gap: 2.5rem; }
+    .hero-photo-col { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+    .photo-frame { width: 200px; height: 200px; }
+    .section-previews { grid-template-columns: 1fr; }
+    .preview-block { border-right: none; border-bottom: 1px solid var(--border); min-height: 220px; }
+    footer { flex-direction: column; gap: .4rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-name">Your Name</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About & Resume</a></li>
+    <li><a href="work.html">Work & Writing</a></li>
+    <li><a href="about.html#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-type">
+    <span class="hero-line hl-sm">MS Information Systems · MBA</span>
+    <span class="hero-line hl-xl">Data.</span>
+    <span class="hero-line hl-xl-teal">Strategy.</span>
+    <span class="hero-line hl-md">Impact.</span>
+    <p class="hl-sub">I bridge the gap between complex systems and clear business decisions — turning data into insight, and insight into action.</p>
+    <div class="hero-chips">
+      <span class="chip">Data Analytics</span>
+      <span class="chip">Business Intelligence</span>
+      <span class="chip">Machine Learning</span>
+      <span class="chip">Systems Design</span>
+      <span class="chip">Product Strategy</span>
+    </div>
+    <div class="hero-actions">
+      <a href="work.html" class="btn-solid">View My Work</a>
+      <a href="about.html" class="btn-outline">About Me</a>
+    </div>
+  </div>
+
+  <div class="hero-photo-col">
+    <div class="photo-frame" onclick="document.getElementById('photoInput').click()">
+      <img id="profileImg" src="" alt="Profile Photo"/>
+      <div class="photo-placeholder" id="photoPlaceholder">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        <span>Click to add<br/>your photo</span>
+      </div>
+    </div>
+    <input type="file" id="photoInput" accept="image/*"/>
+    <div class="degree-badges">
+      <div class="badge">
+        <span class="badge-icon">🎓</span>
+        <div class="badge-text">
+          <strong>MS — Information Systems</strong>
+          <span>University Name · 2025</span>
+        </div>
+      </div>
+      <div class="badge">
+        <span class="badge-icon">📊</span>
+        <div class="badge-text">
+          <strong>MBA</strong>
+          <span>University Name · 2025</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLOR-CODED SECTION PREVIEWS -->
+<div class="section-previews">
+  <a href="about.html" class="preview-block mint">
+    <div class="pb-num">01 · About & Resume</div>
+    <div>
+      <div class="pb-title">Who I Am &amp; Where I've Been</div>
+      <p class="pb-desc">My background, education, experience, and the skills that define my practice.</p>
+    </div>
+  </a>
+  <a href="work.html" class="preview-block sky">
+    <div class="pb-num">02 · Projects</div>
+    <div>
+      <div class="pb-title">Things I've Built &amp; Solved</div>
+      <p class="pb-desc">Data pipelines, ML models, dashboards, and systems that created measurable results.</p>
+    </div>
+  </a>
+  <a href="work.html#blog" class="preview-block sand">
+    <div class="pb-num">03 · Writing</div>
+    <div>
+      <div class="pb-title">Ideas Worth Sharing</div>
+      <p class="pb-desc">Perspectives on data strategy, AI adoption, and the intersection of tech and business.</p>
+    </div>
+  </a>
+</div>
+
+<footer>
+  <div>© 2025 Your Name</div>
+  <div>MS Information Systems · MBA · <a href="mailto:your@email.com">your@email.com</a></div>
+</footer>
+
+<script>
+  // Profile photo upload
+  const input = document.getElementById('photoInput');
+  const img   = document.getElementById('profileImg');
+  const ph    = document.getElementById('photoPlaceholder');
+  input.addEventListener('change', e => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    img.src = url;
+    img.style.display = 'block';
+    ph.style.display = 'none';
+  });
+</script>
+</body>
+</html>
